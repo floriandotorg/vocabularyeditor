@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FYDAppDelegate : NSObject <NSApplicationDelegate>
+@interface FYDAppDelegate : NSObject <NSApplicationDelegate,NSTableViewDataSource,NSTableViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 

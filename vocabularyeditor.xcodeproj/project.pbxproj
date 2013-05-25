@@ -18,6 +18,9 @@
 		17B2E2501751412500505428 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17B2E24E1751412500505428 /* InfoPlist.strings */; };
 		17B2E2531751412500505428 /* vocabularyeditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E2521751412500505428 /* vocabularyeditorTests.m */; };
 		17B2E25F175145C000505428 /* vocabularyeditor.icns in Resources */ = {isa = PBXBuildFile; fileRef = 17B2E25E175145C000505428 /* vocabularyeditor.icns */; };
+		17B2E26A17514F9A00505428 /* FYDStage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26517514F9A00505428 /* FYDStage.m */; };
+		17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26717514F9A00505428 /* FYDVocable.m */; };
+		17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26917514F9A00505428 /* FYDVocabularyBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,12 @@
 		17B2E2511751412500505428 /* vocabularyeditorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vocabularyeditorTests.h; sourceTree = "<group>"; };
 		17B2E2521751412500505428 /* vocabularyeditorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vocabularyeditorTests.m; sourceTree = "<group>"; };
 		17B2E25E175145C000505428 /* vocabularyeditor.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = vocabularyeditor.icns; sourceTree = "<group>"; };
+		17B2E26417514F9A00505428 /* FYDStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYDStage.h; sourceTree = "<group>"; };
+		17B2E26517514F9A00505428 /* FYDStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDStage.m; sourceTree = "<group>"; };
+		17B2E26617514F9A00505428 /* FYDVocable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYDVocable.h; sourceTree = "<group>"; };
+		17B2E26717514F9A00505428 /* FYDVocable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDVocable.m; sourceTree = "<group>"; };
+		17B2E26817514F9A00505428 /* FYDVocabularyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYDVocabularyBox.h; sourceTree = "<group>"; };
+		17B2E26917514F9A00505428 /* FYDVocabularyBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDVocabularyBox.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +129,7 @@
 				17B2E23A1751412500505428 /* FYDAppDelegate.h */,
 				17B2E23B1751412500505428 /* FYDAppDelegate.m */,
 				17B2E23D1751412500505428 /* MainMenu.xib */,
+				17B2E26317514F7F00505428 /* Model */,
 				17B2E22F1751412500505428 /* Supporting Files */,
 			);
 			path = vocabularyeditor;
@@ -154,6 +164,19 @@
 				17B2E24E1751412500505428 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17B2E26317514F7F00505428 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				17B2E26417514F9A00505428 /* FYDStage.h */,
+				17B2E26517514F9A00505428 /* FYDStage.m */,
+				17B2E26617514F9A00505428 /* FYDVocable.h */,
+				17B2E26717514F9A00505428 /* FYDVocable.m */,
+				17B2E26817514F9A00505428 /* FYDVocabularyBox.h */,
+				17B2E26917514F9A00505428 /* FYDVocabularyBox.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +291,9 @@
 			files = (
 				17B2E2351751412500505428 /* main.m in Sources */,
 				17B2E23C1751412500505428 /* FYDAppDelegate.m in Sources */,
+				17B2E26A17514F9A00505428 /* FYDStage.m in Sources */,
+				17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */,
+				17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +416,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vocabularyeditor/vocabularyeditor-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					FYD_NO_VOCABULARY_TEST,
+					"DEBUG=1",
+				);
 				INFOPLIST_FILE = "vocabularyeditor/vocabularyeditor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -402,6 +432,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vocabularyeditor/vocabularyeditor-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = FYD_NO_VOCABULARY_TEST;
 				INFOPLIST_FILE = "vocabularyeditor/vocabularyeditor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
