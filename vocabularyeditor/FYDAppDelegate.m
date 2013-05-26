@@ -8,6 +8,8 @@
 
 #import "FYDAppDelegate.h"
 
+#import "SCEvents.h"
+
 #import "FYDStage.h"
 #import "FYDVocable.h"
 #import "FYDVocabularyBox.h"
@@ -20,6 +22,8 @@
 @property (strong, nonatomic) FYDVocabularyBox *vocabularyBox;
 @property (strong, nonatomic) NSMutableArray *data;
 
+@property (strong, nonatomic) SCEvents *events;
+
 @end
 
 #define FYDVocableDragType @"floydvocable"
@@ -29,8 +33,29 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     [self.tableView registerForDraggedTypes:[NSArray arrayWithObject:FYDVocableDragType]];
+    
+    [self loadVocabularyBox];
+    
+    [self startDropboxMonitor];
+}
+
+#pragma mark - Dropbox Monitor
+
+- (void)startDropboxMonitor
+{
+    self.events = [[SCEvents alloc] init];
+    
+    self.events.delegate = self;
+    
+    [self.events startWatchingPaths:[NSArray arrayWithObject:self.vocabularyBoxFilePath]];
+}
+
+- (void)pathWatcher:(SCEvents *)pathWatcher eventOccurred:(SCEvent *)event
+{
     [self loadVocabularyBox];
 }
+
+#pragma mark - Vocabulary Box
 
 - (IBAction)saveButtonClick:(id)sender
 {

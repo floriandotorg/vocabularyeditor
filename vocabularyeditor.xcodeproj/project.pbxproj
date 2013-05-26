@@ -22,6 +22,8 @@
 		17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26717514F9A00505428 /* FYDVocable.m */; };
 		17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26917514F9A00505428 /* FYDVocabularyBox.m */; };
 		17B2E26F17520FE500505428 /* FYDTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26E17520FE500505428 /* FYDTableView.m */; };
+		17B2E2771752334900505428 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E2731752334900505428 /* SCEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		17B2E2781752334900505428 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E2761752334900505428 /* SCEvents.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,12 @@
 		17B2E26917514F9A00505428 /* FYDVocabularyBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDVocabularyBox.m; sourceTree = "<group>"; };
 		17B2E26D17520FE500505428 /* FYDTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYDTableView.h; sourceTree = "<group>"; };
 		17B2E26E17520FE500505428 /* FYDTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDTableView.m; sourceTree = "<group>"; };
+		17B2E2711752334900505428 /* SCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConstants.h; sourceTree = "<group>"; };
+		17B2E2721752334900505428 /* SCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvent.h; sourceTree = "<group>"; };
+		17B2E2731752334900505428 /* SCEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEvent.m; sourceTree = "<group>"; };
+		17B2E2741752334900505428 /* SCEventListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEventListenerProtocol.h; sourceTree = "<group>"; };
+		17B2E2751752334900505428 /* SCEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvents.h; sourceTree = "<group>"; };
+		17B2E2761752334900505428 /* SCEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEvents.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +143,7 @@
 				17B2E26E17520FE500505428 /* FYDTableView.m */,
 				17B2E23D1751412500505428 /* MainMenu.xib */,
 				17B2E26317514F7F00505428 /* Model */,
+				17B2E2701752333800505428 /* Libs */,
 				17B2E22F1751412500505428 /* Supporting Files */,
 			);
 			path = vocabularyeditor;
@@ -182,6 +191,19 @@
 				17B2E26917514F9A00505428 /* FYDVocabularyBox.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		17B2E2701752333800505428 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				17B2E2711752334900505428 /* SCConstants.h */,
+				17B2E2721752334900505428 /* SCEvent.h */,
+				17B2E2731752334900505428 /* SCEvent.m */,
+				17B2E2741752334900505428 /* SCEventListenerProtocol.h */,
+				17B2E2751752334900505428 /* SCEvents.h */,
+				17B2E2761752334900505428 /* SCEvents.m */,
+			);
+			name = Libs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +322,8 @@
 				17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */,
 				17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */,
 				17B2E26F17520FE500505428 /* FYDTableView.m in Sources */,
+				17B2E2771752334900505428 /* SCEvent.m in Sources */,
+				17B2E2781752334900505428 /* SCEvents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
