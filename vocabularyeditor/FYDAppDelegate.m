@@ -38,10 +38,11 @@
     self.saveButton.enabled = NO;
 }
 
-- (void)dataHasChanged
+- (void)vocabularyBoxHasChanged
 {
+    [self updateData];
+    [self.tableView selectRowIndexes:[[NSIndexSet alloc] init] byExtendingSelection:NO];
     self.saveButton.enabled = YES;
-    [self.tableView reloadData];
 }
 
 - (NSString*) vocabularyBoxFilePath
@@ -49,25 +50,41 @@
     return [NSHomeDirectory() stringByAppendingString:@"/Dropbox/Apps/FloydVocabulary/VocabularyBox.plist"];
 }
 
-- (void) loadVocabularyBox
+- (void)updateData
 {
-    self.vocabularyBox = [NSKeyedUnarchiver unarchiveObjectWithFile:self.vocabularyBoxFilePath];
-    
     self.data = [[NSMutableArray alloc] init];
     
     for (NSUInteger n = 0; n < self.vocabularyBox.stageCount; ++n)
     {
         FYDStage *stage = [self.vocabularyBox stageAt:n];
-        
         [self.data addObject:stage];
+        
+        NSMutableArray *vocables = [[NSMutableArray alloc] init];
         
         for (NSUInteger m = 0; m < stage.vocabularyCount; ++m)
         {
-            [self.data addObject:[stage vocableAt:m]];
+            [vocables addObject:[stage vocableAt:m]];
         }
+        
+        [vocables sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+         {
+             FYDVocable *vocable1 = obj1;
+             FYDVocable *vocable2 = obj2;
+             
+             return [vocable1.foreign localizedCaseInsensitiveCompare:vocable2.foreign];
+         }];
+        
+        [self.data addObjectsFromArray:vocables];
     }
     
     [self.tableView reloadData];
+}
+
+- (void) loadVocabularyBox
+{
+    self.vocabularyBox = [NSKeyedUnarchiver unarchiveObjectWithFile:self.vocabularyBoxFilePath];
+    
+    [self updateData];
 }
 
 - (void) saveVocabularyBox
@@ -141,12 +158,20 @@
         vocable.native = object;
     }
     
-    [self dataHasChanged];
+    [self vocabularyBoxHasChanged];
 }
+
+/*
+ todo
+ - drag to delete
+ - add words
+ - observe file
+ 
+ */
 
 #pragma mark - Table Drag & Drop
 
-- (BOOL)tableView:(NSTableView*)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
+- (BOOL)tableView:(NSTableView*)tableView writeRowsWithIndexes:(NSIndexSet*)rowIndexes toPasteboard:(NSPasteboard*)pboard
 {
     NSData *indexData = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
     
@@ -157,22 +182,27 @@
     return YES;
 }
 
-- (NSUInteger)dragRowForDrop:(id<NSDraggingInfo>)info
+- (NSIndexSet*)dragRowsForDrop:(NSPasteboard*)draggingPasteboard
 {
-    NSData* rowData = [[info draggingPasteboard] dataForType:FYDVocableDragType];
+    NSData* rowData = [draggingPasteboard dataForType:FYDVocableDragType];
     
-    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-    
-    return [rowIndexes firstIndex];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
 }
 
-- (FYDStage*)lastStageBeforeRow:(NSUInteger)row
+- (FYDStage*)lastStageBeforeRow:(NSUInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
 {
     NSUInteger n = row;
     
+    //NSLog(@"row %ld, operation: %ld", row, dropOperation);
+
     if (n >= self.data.count)
     {
         n = self.data.count - 1;
+    }
+    
+    if (n > 0 && dropOperation == NSTableViewDropAbove && [self.data[n] isKindOfClass:[FYDStage class]])
+    {
+        --n;
     }
     
     for (; ![self.data[n] isKindOfClass:[FYDStage class]]; --n);
@@ -182,7 +212,7 @@
 
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
 {
-    if ([self lastStageBeforeRow:row] != ((FYDVocable*)self.data[[self dragRowForDrop:info]]).stage)
+    if ([self lastStageBeforeRow:row proposedDropOperation:dropOperation] != ((FYDVocable*)self.data[[self dragRowsForDrop:info.draggingPasteboard].firstIndex]).stage)
     {
         return NSDragOperationMove | NSDragOperationDelete;
     }
@@ -194,35 +224,39 @@
 
 - (BOOL)tableView:(NSTableView*)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation
 {
-    NSUInteger dragRow = [self dragRowForDrop:info];
+    NSIndexSet *dragRows = [self dragRowsForDrop:info.draggingPasteboard];
     
-    FYDVocable *vocable = self.data[dragRow];
-    FYDStage *stage = [self lastStageBeforeRow:row];
+    FYDStage *stage = [self lastStageBeforeRow:row proposedDropOperation:dropOperation];
     
-    if (stage != vocable.stage)
-    {
-        [self.data removeObjectAtIndex:dragRow];
-        
-        if (dropOperation == NSTableViewDropAbove)
+    [dragRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop)
         {
-            [self.data insertObject:vocable atIndex:row - 1];
-        }
-        else
+            FYDVocable *vocable = self.data[idx];
+            
+            if (stage != vocable.stage)
+            {
+                [vocable.stage removeVocable:vocable];
+                [stage addVocable:vocable];
+            }
+        }];
+    
+    [self vocabularyBoxHasChanged];
+    
+    return YES;
+}
+
+- (BOOL)tableView:(NSTableView*)sender deleteDrop:(NSPasteboard*)draggingPasteboard dropOperation:(NSTableViewDropOperation)dropOperation
+{
+    NSIndexSet *dragRows = [self dragRowsForDrop:draggingPasteboard];
+    
+    [dragRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop)
         {
-            [self.data insertObject:vocable atIndex:row];
-        }
-        
-        [vocable.stage removeVocable:vocable];
-        [stage addVocable:vocable];
-        
-        [self dataHasChanged];
-        
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
+            FYDVocable *vocable = self.data[idx];         
+            [vocable.stage removeVocable:vocable];
+        }];
+    
+    [self vocabularyBoxHasChanged];
+    
+     return YES;
 }
 
 @end

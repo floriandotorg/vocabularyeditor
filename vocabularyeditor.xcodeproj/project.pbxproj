@@ -21,6 +21,7 @@
 		17B2E26A17514F9A00505428 /* FYDStage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26517514F9A00505428 /* FYDStage.m */; };
 		17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26717514F9A00505428 /* FYDVocable.m */; };
 		17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26917514F9A00505428 /* FYDVocabularyBox.m */; };
+		17B2E26F17520FE500505428 /* FYDTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26E17520FE500505428 /* FYDTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		17B2E26717514F9A00505428 /* FYDVocable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDVocable.m; sourceTree = "<group>"; };
 		17B2E26817514F9A00505428 /* FYDVocabularyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYDVocabularyBox.h; sourceTree = "<group>"; };
 		17B2E26917514F9A00505428 /* FYDVocabularyBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDVocabularyBox.m; sourceTree = "<group>"; };
+		17B2E26D17520FE500505428 /* FYDTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYDTableView.h; sourceTree = "<group>"; };
+		17B2E26E17520FE500505428 /* FYDTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYDTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 			children = (
 				17B2E23A1751412500505428 /* FYDAppDelegate.h */,
 				17B2E23B1751412500505428 /* FYDAppDelegate.m */,
+				17B2E26D17520FE500505428 /* FYDTableView.h */,
+				17B2E26E17520FE500505428 /* FYDTableView.m */,
 				17B2E23D1751412500505428 /* MainMenu.xib */,
 				17B2E26317514F7F00505428 /* Model */,
 				17B2E22F1751412500505428 /* Supporting Files */,
@@ -294,6 +299,7 @@
 				17B2E26A17514F9A00505428 /* FYDStage.m in Sources */,
 				17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */,
 				17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */,
+				17B2E26F17520FE500505428 /* FYDTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
