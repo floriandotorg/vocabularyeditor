@@ -9,6 +9,7 @@
 #import "FYDAppDelegate.h"
 
 #import "SCEvents.h"
+#import "NSString+Empty.h"
 
 #import "FYDStage.h"
 #import "FYDVocable.h"
@@ -18,11 +19,16 @@
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSButton *saveButton;
+@property (unsafe_unretained) IBOutlet NSWindow *mainWindow;
 
 @property (strong, nonatomic) FYDVocabularyBox *vocabularyBox;
 @property (strong, nonatomic) NSMutableArray *data;
 
 @property (strong, nonatomic) SCEvents *events;
+
+@property (unsafe_unretained) IBOutlet NSPanel *addWordSheet;
+@property (weak) IBOutlet NSTextField *addWordForeignText;
+@property (weak) IBOutlet NSTextField *addWordNativeText;
 
 @end
 
@@ -39,6 +45,12 @@
     [self startDropboxMonitor];
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
+{
+    [self.mainWindow makeKeyAndOrderFront:self];
+    return NO;
+}
+
 #pragma mark - Dropbox Monitor
 
 - (void)startDropboxMonitor
@@ -53,6 +65,45 @@
 - (void)pathWatcher:(SCEvents *)pathWatcher eventOccurred:(SCEvent *)event
 {
     [self loadVocabularyBox];
+}
+
+#pragma mark - Add Vocable
+
+- (IBAction)plusButtonClick:(NSButton *)sender
+{
+    [NSApp beginSheet:self.addWordSheet
+       modalForWindow:(NSWindow *)_window
+        modalDelegate:self
+       didEndSelector:nil
+          contextInfo:nil];
+}
+
+- (void)newWord
+{
+    if (![self.addWordNativeText.stringValue isEmpty] && ![self.addWordForeignText.stringValue isEmpty])
+    {
+        [[self.vocabularyBox stageAt:0] addVocable:[[FYDVocable alloc] initWithNative:self.addWordNativeText.stringValue AndForeign:self.addWordForeignText.stringValue AndStage:[self.vocabularyBox stageAt:0]]];
+    }
+    
+    self.addWordNativeText.stringValue = @"";
+    self.addWordForeignText.stringValue = @"";
+    
+    [self.addWordForeignText becomeFirstResponder];
+}
+
+- (IBAction)addWordNextButtonClick:(NSButton *)sender
+{
+    [self newWord];
+}
+
+- (IBAction)addWordSaveButtonClick:(NSButton *)sender
+{
+    [self newWord];
+    
+    [NSApp endSheet:self.addWordSheet];
+    [self.addWordSheet orderOut:sender];
+    
+    [self vocabularyBoxHasChanged];
 }
 
 #pragma mark - Vocabulary Box
@@ -185,14 +236,6 @@
     
     [self vocabularyBoxHasChanged];
 }
-
-/*
- todo
- - drag to delete
- - add words
- - observe file
- 
- */
 
 #pragma mark - Table Drag & Drop
 

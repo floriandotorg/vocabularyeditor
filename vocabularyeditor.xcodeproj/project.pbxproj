@@ -24,6 +24,7 @@
 		17B2E26F17520FE500505428 /* FYDTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E26E17520FE500505428 /* FYDTableView.m */; };
 		17B2E2771752334900505428 /* SCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E2731752334900505428 /* SCEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		17B2E2781752334900505428 /* SCEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E2761752334900505428 /* SCEvents.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		17B2E27B17523A3C00505428 /* NSString+Empty.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E27917523A3C00505428 /* NSString+Empty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		17B2E2741752334900505428 /* SCEventListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEventListenerProtocol.h; sourceTree = "<group>"; };
 		17B2E2751752334900505428 /* SCEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEvents.h; sourceTree = "<group>"; };
 		17B2E2761752334900505428 /* SCEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEvents.m; sourceTree = "<group>"; };
+		17B2E27917523A3C00505428 /* NSString+Empty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Empty.m"; sourceTree = "<group>"; };
+		17B2E27A17523A3C00505428 /* NSString+Empty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Empty.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +199,8 @@
 		17B2E2701752333800505428 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				17B2E27917523A3C00505428 /* NSString+Empty.m */,
+				17B2E27A17523A3C00505428 /* NSString+Empty.h */,
 				17B2E2711752334900505428 /* SCConstants.h */,
 				17B2E2721752334900505428 /* SCEvent.h */,
 				17B2E2731752334900505428 /* SCEvent.m */,
@@ -324,6 +329,7 @@
 				17B2E26F17520FE500505428 /* FYDTableView.m in Sources */,
 				17B2E2771752334900505428 /* SCEvent.m in Sources */,
 				17B2E2781752334900505428 /* SCEvents.m in Sources */,
+				17B2E27B17523A3C00505428 /* NSString+Empty.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
