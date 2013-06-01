@@ -16,12 +16,13 @@
 
 @implementation FYDVocable
 
-- (id)initWithNative:(NSString*)native AndForeign:(NSString*)foreign AndStage:(FYDStage*)stage;
+- (id)initWithNative:(NSString*)native AndForeign:(NSString*)foreign AndForeignExample:(NSString*)foreign_example AndStage:(FYDStage*)stage
 {
     if (self = [super init])
     {
         self.native = native;
         self.foreign = foreign;
+        self.foreign_example = foreign_example;
         self.stage = stage;
     }
     return self;
@@ -33,6 +34,7 @@
 {
     [aCoder encodeObject:self.native forKey:@"native"];
     [aCoder encodeObject:self.foreign forKey:@"foreign"];
+    [aCoder encodeObject:self.foreign_example forKey:@"foreign_example"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -41,6 +43,7 @@
     {
         self.native = [aDecoder decodeObjectForKey:@"native"];
         self.foreign = [aDecoder decodeObjectForKey:@"foreign"];
+        self.foreign_example = [aDecoder decodeObjectForKey:@"foreign_example"];
     }
     
     return self;

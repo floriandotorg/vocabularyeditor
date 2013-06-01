@@ -33,9 +33,9 @@
     return self;
 }
 
-- (void)createVocableWithNative:(NSString*)native AndForeign:(NSString*)foreign;
+- (void)createVocableWithNative:(NSString*)native AndForeign:(NSString*)foreign AndExample:(NSString*)example
 {
-    [self.vocabularies addObject:[[FYDVocable alloc] initWithNative:native AndForeign:foreign AndStage:self]];
+    [self.vocabularies addObject:[[FYDVocable alloc] initWithNative:native AndForeign:foreign AndForeignExample:example AndStage:self]];
 }
 
 - (void)addVocable:(FYDVocable*)vocable

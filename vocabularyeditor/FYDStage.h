@@ -21,7 +21,7 @@
 - (NSInteger)vocabularyCount;
 - (FYDVocable*)vocableAt:(NSInteger)vocableNo;
 
-- (void)createVocableWithNative:(NSString*)native AndForeign:(NSString*)foreign;
+- (void)createVocableWithNative:(NSString*)native AndForeign:(NSString*)foreign AndExample:(NSString*)example;
 
 - (void)addVocable:(FYDVocable*)vocable;
 - (void)removeVocable:(FYDVocable*)vocable;

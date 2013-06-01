@@ -29,6 +29,7 @@
 @property (unsafe_unretained) IBOutlet NSPanel *addWordSheet;
 @property (weak) IBOutlet NSTextField *addWordForeignText;
 @property (weak) IBOutlet NSTextField *addWordNativeText;
+@property (weak) IBOutlet NSTextField *addWordExampleText;
 
 @end
 
@@ -82,11 +83,12 @@
 {
     if (![self.addWordNativeText.stringValue isEmpty] && ![self.addWordForeignText.stringValue isEmpty])
     {
-        [[self.vocabularyBox stageAt:0] addVocable:[[FYDVocable alloc] initWithNative:self.addWordNativeText.stringValue AndForeign:self.addWordForeignText.stringValue AndStage:[self.vocabularyBox stageAt:0]]];
+        [[self.vocabularyBox stageAt:0] createVocableWithNative:self.addWordNativeText.stringValue AndForeign:self.addWordForeignText.stringValue AndExample:self.addWordExampleText.stringValue];
     }
     
     self.addWordNativeText.stringValue = @"";
     self.addWordForeignText.stringValue = @"";
+    self.addWordExampleText.stringValue = @"";
     
     [self.addWordForeignText becomeFirstResponder];
 }
@@ -216,6 +218,10 @@
         {
             return vocable.native;
         }
+        else if ([tableColumn.identifier isEqualToString:@"foreign_example"])
+        {
+            return vocable.foreign_example;
+        }
     }
     
     return nil;
@@ -232,6 +238,10 @@
     else if ([tableColumn.identifier isEqualToString:@"native"])
     {
         vocable.native = object;
+    }
+    else if ([tableColumn.identifier isEqualToString:@"foreign_example"])
+    {
+        vocable.foreign_example = object;
     }
     
     [self vocabularyBoxHasChanged];
