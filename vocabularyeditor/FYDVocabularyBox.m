@@ -35,9 +35,22 @@
     return self;
 }
 
+- (FYDStage*)recommandedStage
+{
+    for (NSInteger n = self.stageCount - 1; n > 0; --n)
+    {
+        if ([self stageAt:n - 1].testCount >= 3)
+        {
+            return self.stages[n];
+        }
+    }
+    
+    return self.stages[0];
+}
+
 - (FYDStage*)addStage
 {
-    FYDStage *stage = [[FYDStage alloc] initWithNo:++self.lastStageNo];
+    FYDStage *stage = [[FYDStage alloc] initWithNo:++self.lastStageNo inVocabularyBox:self];
     [self.stages addObject:stage];
     return stage;
 }
@@ -100,6 +113,11 @@
         self.lastStageNo = [aDecoder decodeIntegerForKey:@"lastStageNo"];
         self.stages = [aDecoder decodeObjectForKey:@"stages"];
         self.learned = [aDecoder decodeObjectForKey:@"learned"];
+        
+        for (FYDStage *stage in self.stages)
+        {
+            stage.vocabularyBox = self;
+        }
     }
     
     return self;

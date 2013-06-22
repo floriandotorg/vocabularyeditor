@@ -14,9 +14,11 @@
 
 @interface FYDStage : NSObject
 
-@property (readonly,nonatomic) int no;
+@property (readonly, nonatomic) int no;
+@property (readonly, nonatomic) NSUInteger testCount;
+@property (weak, nonatomic) FYDVocabularyBox *vocabularyBox;
 
-- (id)initWithNo:(NSInteger)no;
+- (id)initWithNo:(NSInteger)no inVocabularyBox:(FYDVocabularyBox*)vocabularyBox;
 
 - (NSInteger)vocabularyCount;
 - (FYDVocable*)vocableAt:(NSInteger)vocableNo;
@@ -25,6 +27,9 @@
 
 - (void)addVocable:(FYDVocable*)vocable;
 - (void)removeVocable:(FYDVocable*)vocable;
+
+- (void)incTestCount;
+- (BOOL)recommanded;
 
 #ifndef FYD_NO_VOCABULARY_TEST
 - (FYDVocabularyTest*)vocabularyTestWithBox:(FYDVocabularyBox*)box;

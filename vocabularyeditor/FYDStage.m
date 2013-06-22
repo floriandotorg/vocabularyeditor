@@ -9,6 +9,7 @@
 #import "FYDStage.h"
 
 #import "FYDVocable.h"
+#import "FYDVocabularyBox.h"
 
 #ifndef FYD_NO_VOCABULARY_TEST
 #import "FYDVocabularyTest.h"
@@ -16,19 +17,22 @@
 
 @interface FYDStage ()
 
-@property (assign,nonatomic) int no;
-@property (strong,nonatomic) NSMutableArray *vocabularies;
+@property (assign, nonatomic) int no;
+@property (assign, nonatomic) NSUInteger testCount;
+@property (strong, nonatomic) NSMutableArray *vocabularies;
 
 @end
 
 @implementation FYDStage
 
-- (id)initWithNo:(NSInteger)no;
+- (id)initWithNo:(NSInteger)no inVocabularyBox:(FYDVocabularyBox*)vocabularyBox;
 {
     if (self = [super init])
     {
         self.vocabularies = [[NSMutableArray alloc] init];
         self.no = no;
+        self.vocabularyBox = vocabularyBox;
+        self.testCount = 0;
     }
     return self;
 }
@@ -60,6 +64,20 @@
     return self.vocabularies[vocableNo];
 }
 
+- (void)incTestCount
+{
+    self.testCount += 1;
+    if (self.no > 1)
+    {
+        [self.vocabularyBox stageAt:self.no - 2].testCount = 0;
+    }
+}
+
+- (BOOL)recommanded
+{
+    return self.vocabularyBox.recommandedStage == self;
+}
+
 #ifndef FYD_NO_VOCABULARY_TEST
 - (FYDVocabularyTest*)vocabularyTestWithBox:(FYDVocabularyBox*)box
 {
@@ -72,6 +90,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeInteger:self.no forKey:@"no"];
+    [aCoder encodeInteger:self.testCount forKey:@"testCount"];
     [aCoder encodeObject:self.vocabularies forKey:@"vocabularies"];
 }
 
@@ -80,6 +99,7 @@
     if (self = [super init])
     {
         self.no = [aDecoder decodeIntegerForKey:@"no"];
+        self.testCount = [aDecoder decodeIntegerForKey:@"testCount"];
         self.vocabularies = [aDecoder decodeObjectForKey:@"vocabularies"];
         
         for (FYDVocable *vocable in self.vocabularies)

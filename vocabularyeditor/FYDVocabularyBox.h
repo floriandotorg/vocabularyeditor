@@ -25,6 +25,8 @@
 - (FYDVocabularyTest*)vocabularyTestForStage:(NSInteger)stageNo;
 #endif
 
+- (FYDStage*)recommandedStage;
+
 - (void)putIntoFirstStage:(FYDVocable*)vocable;
 - (void)putIntoNextStage:(FYDVocable*)vocable;
 
