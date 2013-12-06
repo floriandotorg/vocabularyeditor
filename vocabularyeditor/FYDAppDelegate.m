@@ -10,6 +10,7 @@
 
 #import "SCEvents.h"
 #import "NSString+Empty.h"
+#import "NSString+containsString.h"
 
 #import "FYDStage.h"
 #import "FYDVocable.h"
@@ -20,9 +21,11 @@
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSButton *saveButton;
 @property (unsafe_unretained) IBOutlet NSWindow *mainWindow;
+@property (weak) IBOutlet NSSearchField *searchField;
 
 @property (strong, nonatomic) FYDVocabularyBox *vocabularyBox;
 @property (strong, nonatomic) NSMutableArray *data;
+@property (strong, nonatomic) NSMutableArray *orgData;
 
 @property (strong, nonatomic) SCEvents *events;
 
@@ -39,6 +42,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.searchField.delegate = self;
+    
     [self.tableView registerForDraggedTypes:[NSArray arrayWithObject:FYDVocableDragType]];
     
     [self loadVocabularyBox];
@@ -130,12 +135,12 @@
 
 - (void)updateData
 {
-    self.data = [[NSMutableArray alloc] init];
+    self.orgData = [[NSMutableArray alloc] init];
     
     for (NSUInteger n = 0; n < self.vocabularyBox.stageCount; ++n)
     {
         FYDStage *stage = [self.vocabularyBox stageAt:n];
-        [self.data addObject:stage];
+        [self.orgData addObject:stage];
         
         NSMutableArray *vocables = [[NSMutableArray alloc] init];
         
@@ -152,10 +157,10 @@
              return [vocable1.foreign localizedCaseInsensitiveCompare:vocable2.foreign];
          }];
         
-        [self.data addObjectsFromArray:vocables];
+        [self.orgData addObjectsFromArray:vocables];
     }
     
-    [self.tableView reloadData];
+    [self filterData];
 }
 
 - (void) loadVocabularyBox
@@ -168,6 +173,56 @@
 - (void) saveVocabularyBox
 {
     [NSKeyedArchiver archiveRootObject:self.vocabularyBox toFile:self.vocabularyBoxFilePath];
+}
+
+#pragma mark - Search
+
+-(void)controlTextDidChange:(NSNotification *)obj
+{
+    if ([obj.object isKindOfClass:[NSSearchField class]])
+    {
+        [self filterData];
+    }
+}
+
+-(void)controlTextDidEndEditing:(NSNotification *)obj
+{
+    if ([obj.object isKindOfClass:[NSTableView class]])
+    {
+        [self vocabularyBoxHasChanged];
+    }
+}
+
+- (void)filterData
+{
+    if ([self.searchField.stringValue isEmpty])
+    {
+        self.data = self.orgData;
+    }
+    else
+    {
+        self.data = [[self.orgData objectsAtIndexes:[self.orgData indexesOfObjectsPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop)
+        {
+            if ([obj isKindOfClass:[FYDVocable class]])
+            {
+                FYDVocable *vocable = (FYDVocable*)obj;
+                if ([vocable.foreign containsString:self.searchField.stringValue] || [vocable.native containsString:self.searchField.stringValue] || [vocable.foreign_example containsString:self.searchField.stringValue])
+                {
+                    return YES;
+                }
+                else
+                {
+                    return NO;
+                }
+            }
+            else
+            {
+                return YES;
+            }
+        }]] mutableCopy];
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table
@@ -243,8 +298,6 @@
     {
         vocable.foreign_example = object;
     }
-    
-    [self vocabularyBoxHasChanged];
 }
 
 #pragma mark - Table Drag & Drop
@@ -270,8 +323,6 @@
 - (FYDStage*)lastStageBeforeRow:(NSUInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
 {
     NSUInteger n = row;
-    
-    //NSLog(@"row %ld, operation: %ld", row, dropOperation);
 
     if (n >= self.data.count)
     {
@@ -328,7 +379,7 @@
     
     [dragRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop)
         {
-            FYDVocable *vocable = self.data[idx];         
+            FYDVocable *vocable = self.data[idx];
             [vocable.stage removeVocable:vocable];
         }];
     

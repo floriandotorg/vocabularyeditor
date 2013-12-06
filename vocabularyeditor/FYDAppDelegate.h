@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SCEventListenerProtocol.h"
 
-@interface FYDAppDelegate : NSObject <NSApplicationDelegate,NSTableViewDataSource,NSTableViewDelegate,SCEventListenerProtocol>
+@interface FYDAppDelegate : NSObject <NSApplicationDelegate,NSTableViewDataSource,NSTableViewDelegate, NSTextFieldDelegate, SCEventListenerProtocol>
 
 @property (assign) IBOutlet NSWindow *window;
 

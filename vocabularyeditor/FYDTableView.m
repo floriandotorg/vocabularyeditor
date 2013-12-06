@@ -23,11 +23,8 @@
 
 - (void)draggingSession:(NSDraggingSession*)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation
 {
-    //NSLog(@"endedAtPoint: %f, %f", [self.window convertRectFromScreen:NSMakeRect(screenPoint.x, screenPoint.y, 0, 0)].origin.x, [self.window convertRectFromScreen:NSMakeRect(screenPoint.x, screenPoint.y, 0, 0)].origin.y);
-    
-    if (!NSMouseInRect([self.window convertRectFromScreen:NSMakeRect(screenPoint.x, screenPoint.y, 0, 0)].origin, self.bounds, NO))
+    if (!NSMouseInRect([self convertPointFromBase:[self.window convertScreenToBase:screenPoint]], self.bounds, NO))
     {
-        //NSLog(@"drop out of tableview");
         if ([(NSObject*)[self dataSource] tableView:self deleteDrop:session.draggingPasteboard dropOperation:operation])
         {
             NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, screenPoint, NSZeroSize, nil, nil, nil);

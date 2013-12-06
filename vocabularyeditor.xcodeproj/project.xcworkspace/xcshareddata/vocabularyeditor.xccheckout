@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>94CFD2C3-0B12-48A6-BA9D-8A4E87AE4C0E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>vocabularyeditor</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>659BAF12-1300-4D66-AA64-3E3A72A17CB1</key>
+		<string>https://github.com/floydgames/vocabularyeditor.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>vocabularyeditor.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>659BAF12-1300-4D66-AA64-3E3A72A17CB1</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/floydgames/vocabularyeditor.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>659BAF12-1300-4D66-AA64-3E3A72A17CB1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>659BAF12-1300-4D66-AA64-3E3A72A17CB1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>vocabularyeditor</string>
+		</dict>
+	</array>
+</dict>
+</plist>

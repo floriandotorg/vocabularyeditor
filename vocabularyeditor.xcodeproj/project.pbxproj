@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17A421FF1851FCD10076E2B8 /* NSString+containsString.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A421FE1851FCD10076E2B8 /* NSString+containsString.m */; };
 		17B2E2291751412500505428 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B2E2281751412500505428 /* Cocoa.framework */; };
 		17B2E2331751412500505428 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17B2E2311751412500505428 /* InfoPlist.strings */; };
 		17B2E2351751412500505428 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B2E2341751412500505428 /* main.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17A421FD1851FCD10076E2B8 /* NSString+containsString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+containsString.h"; sourceTree = "<group>"; };
+		17A421FE1851FCD10076E2B8 /* NSString+containsString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+containsString.m"; sourceTree = "<group>"; };
 		17B2E2251751412500505428 /* vocabularyeditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vocabularyeditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B2E2281751412500505428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		17B2E22B1751412500505428 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -199,6 +202,8 @@
 		17B2E2701752333800505428 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				17A421FD1851FCD10076E2B8 /* NSString+containsString.h */,
+				17A421FE1851FCD10076E2B8 /* NSString+containsString.m */,
 				17B2E27917523A3C00505428 /* NSString+Empty.m */,
 				17B2E27A17523A3C00505428 /* NSString+Empty.h */,
 				17B2E2711752334900505428 /* SCConstants.h */,
@@ -326,6 +331,7 @@
 				17B2E26A17514F9A00505428 /* FYDStage.m in Sources */,
 				17B2E26B17514F9A00505428 /* FYDVocable.m in Sources */,
 				17B2E26C17514F9A00505428 /* FYDVocabularyBox.m in Sources */,
+				17A421FF1851FCD10076E2B8 /* NSString+containsString.m in Sources */,
 				17B2E26F17520FE500505428 /* FYDTableView.m in Sources */,
 				17B2E2771752334900505428 /* SCEvent.m in Sources */,
 				17B2E2781752334900505428 /* SCEvents.m in Sources */,
@@ -524,6 +530,7 @@
 				17B2E2581751412500505428 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		17B2E2591751412500505428 /* Build configuration list for PBXNativeTarget "vocabularyeditorTests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +539,7 @@
 				17B2E25B1751412500505428 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
